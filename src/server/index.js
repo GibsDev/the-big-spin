@@ -17,13 +17,21 @@ app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public/index.html'));
 });
 
+const connections = {};
+
 io.on('connection', (socket) => {
-    socket.on('cool event', payload => {
-        console.log(payload);
+    console.log('A user connected');
+    connections[socket.id] = socket;
+
+    // Rebroadcast any socket events to all connections
+    socket.onAny((eventName, ...args) => {
+        for (const socket of Object.values(connections)) {
+            socket.emit(eventName, ...args);
+        }
     });
-    console.log('a user connected');
+
     socket.on('disconnect', () => {
-        console.log('user disconnected');
+        delete connections[socket.id];
     });
 });
 

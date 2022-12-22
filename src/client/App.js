@@ -7,6 +7,19 @@ import PlayerPage from './PlayerPage';
 import Board from './Board';
 import Home from './Home';
 
+import io from 'socket.io-client';
+import {createContext, useEffect, useState} from "react";
+
+const socket = io();
+
+const initialGameState = {
+    puzzle: null,
+    currentTeam: 1
+};
+
+export const GameStateContext = createContext(initialGameState);
+export const SocketContext = createContext(socket);
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -35,7 +48,35 @@ const router = createBrowserRouter([
 ]);
 
 export const App = () => {
-    return <RouterProvider router={router}/>;
+
+    const [,setIsConnected] = useState(socket.connected);
+    const [gameState, setGameState] = useState(initialGameState);
+
+    useEffect(() => {
+        socket.on('connect', () => {
+            setIsConnected(true);
+        });
+
+        socket.on('disconnect', () => {
+            setIsConnected(false);
+        });
+
+        socket.on('gameState', state => {
+            setGameState(state);
+        });
+
+        return () => {
+            socket.off('connect');
+            socket.off('disconnect');
+            socket.off('gameState');
+        };
+    }, []);
+
+    return <SocketContext.Provider value={socket}>
+        <GameStateContext.Provider value={gameState}>
+            <RouterProvider router={router}/>
+        </GameStateContext.Provider>
+    </SocketContext.Provider>;
 };
 
 export default App;
