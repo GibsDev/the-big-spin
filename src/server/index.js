@@ -4,6 +4,7 @@ import http from 'http';
 const server = http.createServer(app);
 import { Server } from 'socket.io';
 import path from 'path';
+import INITIAL_GAME_STATE from "../gameState";
 const io = new Server(server, {
     cors: {
         origin: 'http://localhost:8080',
@@ -19,12 +20,28 @@ app.get('/*', (req, res) => {
 
 const connections = {};
 
+//Track game state on the server side
+let gameState = INITIAL_GAME_STATE;
+
 io.on('connection', (socket) => {
     console.log('A user connected');
     connections[socket.id] = socket;
 
+    // Broadcast game state on connection
+    function broadcastState() {
+        for (const socket of Object.values(connections)) {
+            socket.emit('gameState', gameState);
+        }
+    }
+
+    broadcastState();
+
     // Rebroadcast any socket events to all connections
     socket.onAny((eventName, ...args) => {
+        if (eventName === 'gameState') {
+            gameState = args[0];
+            broadcastState();
+        }
         for (const socket of Object.values(connections)) {
             socket.emit(eventName, ...args);
         }

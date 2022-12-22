@@ -1,5 +1,9 @@
+import PlayersDisplay from "./PlayersDisplay";
+
 const AdminPage = () => {
-    return <div>Admin panel</div>
+    return <>
+        <PlayersDisplay />
+    </>;
 };
 
 export default AdminPage;

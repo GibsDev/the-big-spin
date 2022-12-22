@@ -1,6 +1,7 @@
 import {useContext, useEffect} from 'react';
 import {SocketContext} from './App';
 import DebugGameState from './DebugGameState';
+import PlayersDisplay from './PlayersDisplay';
 
 const Board = () => {
 
@@ -14,7 +15,7 @@ const Board = () => {
 
     return <>
         <DebugGameState />
-        <div>Here is the board</div>
+        <PlayersDisplay />
     </>;
 };
 

@@ -8,9 +8,9 @@ const Home = () => {
 
     return <>
         <a href={'/board'}>Board</a>
-        <a href={'/team1'}>Team 1</a>
-        <a href={'/team2'}>Team 2</a>
-        <a href={'/team3'}>Team 3</a>
+        <a href={'/player1'}>Team 1</a>
+        <a href={'/player2'}>Team 2</a>
+        <a href={'/player3'}>Team 3</a>
     </>;
 };
 

@@ -12,12 +12,7 @@ import {createContext, useEffect, useState} from "react";
 
 const socket = io();
 
-const initialGameState = {
-    puzzle: null,
-    currentTeam: 1
-};
-
-export const GameStateContext = createContext(initialGameState);
+export const GameStateContext = createContext({});
 export const SocketContext = createContext(socket);
 
 const router = createBrowserRouter([
@@ -30,15 +25,15 @@ const router = createBrowserRouter([
         element: <Board />,
     },
     {
-        path: '/team1', // Game board
+        path: '/player1', // Game board
         element: <PlayerPage id={1} />,
     },
     {
-        path: '/team2', // Game board
+        path: '/player2', // Game board
         element: <PlayerPage id={2} />,
     },
     {
-        path: '/team3', // Game board
+        path: '/player3', // Game board
         element: <PlayerPage id={3} />,
     },
     {
@@ -50,7 +45,7 @@ const router = createBrowserRouter([
 export const App = () => {
 
     const [,setIsConnected] = useState(socket.connected);
-    const [gameState, setGameState] = useState(initialGameState);
+    const [gameState, setGameState] = useState({});
 
     useEffect(() => {
         socket.on('connect', () => {
