@@ -2,6 +2,8 @@ import {useContext, useEffect} from 'react';
 import {SocketContext} from './App';
 import DebugGameState from './DebugGameState';
 import PlayersDisplay from './PlayersDisplay';
+import Wheel from './Wheel';
+import Spinner from './Spinner';
 
 const Board = () => {
 
@@ -14,8 +16,10 @@ const Board = () => {
     });
 
     return <>
+        <Wheel />
         <DebugGameState />
-        <PlayersDisplay />
+        <Spinner />
+        <PlayersDisplay admin={false}/>
     </>;
 };
 

@@ -2,7 +2,7 @@ import PlayersDisplay from "./PlayersDisplay";
 
 const AdminPage = () => {
     return <>
-        <PlayersDisplay />
+        <PlayersDisplay admin={true}/>
     </>;
 };
 

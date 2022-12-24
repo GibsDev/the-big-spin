@@ -2,7 +2,7 @@ import {useContext} from "react";
 import {GameStateContext, SocketContext} from "./App";
 import clsx from "clsx";
 
-const PlayerSummary = ({id, name, cash, bank, children}) => {
+const PlayerSummary = ({id, name, cash, bank, children, admin}) => {
 
     const backgroundColors = ['red', 'gold', 'blue'];
     const gameState = useContext(GameStateContext);
@@ -11,10 +11,12 @@ const PlayerSummary = ({id, name, cash, bank, children}) => {
     const active = gameState.currentPlayer === id;
 
     const selectPlayer = () => {
-        socket.emit('gameState', {
-            ...gameState,
-            currentPlayer: id
-        });
+        if (admin) {
+            socket.emit('gameState', {
+                ...gameState,
+                currentPlayer: id
+            });
+        }
     };
 
     return <button

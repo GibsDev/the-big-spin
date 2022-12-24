@@ -1,3 +1,6 @@
+$radial_white: radial-gradient(#fff, #ccc);
+$radial_green: radial-gradient(#94ed91, #06a600);
+
 @mixin font {
   font-weight: bold;
   font-size: 3rem;
@@ -10,11 +13,12 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: radial-gradient(#fff, #ccc);
+  background: $radial_white;
   border: 0.5rem solid black;
   padding: 1rem;
   color: black;
 }
+
 
 * {
   margin: 0;
@@ -29,6 +33,10 @@ html {
 
 button {
   border: none;
+}
+
+canvas {
+  // display: block;
 }
 
 #root {
@@ -46,6 +54,10 @@ button {
 
 .title {
   @include letterStyle;
+
+  &.active {
+    background: $radial_green;
+  }
 }
 
 pre {

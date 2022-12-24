@@ -18,7 +18,7 @@ const PlayerPage = ({id}) => {
 
     return <>
         <DebugGameState/>
-        <h1 className="title">Player {id}</h1>
+        <h1 className={clsx('title', {active: isMyTurn})}>Player {id}</h1>
         <button className={clsx('spinButton', { active: isMyTurn })} onClick={spin}>Spin</button>
     </>;
 };
