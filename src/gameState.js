@@ -1,5 +1,5 @@
 const INITIAL_GAME_STATE = {
-    currentPlayer: null,
+    currentPlayer: 1,
     spinning: false
 };
 

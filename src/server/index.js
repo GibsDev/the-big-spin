@@ -4,7 +4,7 @@ import http from 'http';
 const server = http.createServer(app);
 import { Server } from 'socket.io';
 import path from 'path';
-import INITIAL_GAME_STATE from "../gameState";
+import INITIAL_GAME_STATE from '../gameState';
 const io = new Server(server, {
     cors: {
         origin: 'http://localhost:8080',
