@@ -1,22 +1,16 @@
-import {useContext} from "react";
-import {GameStateContext, SocketContext} from "./App";
-import clsx from "clsx";
+import clsx from 'clsx';
+import {useSelector} from 'react-redux';
+import gameSlice from './gameSlice';
 
 const PlayerSummary = ({id, name, cash, bank, children, admin}) => {
 
     const backgroundColors = ['red', 'gold', 'blue'];
-    const gameState = useContext(GameStateContext);
-    const socket = useContext(SocketContext);
 
-    const active = gameState.currentPlayer === id;
+    const currentPlayer = useSelector(gameSlice.selectors.currentPlayer);
+    const active = currentPlayer === id;
 
     const selectPlayer = () => {
-        if (admin) {
-            socket.emit('gameState', {
-                ...gameState,
-                currentPlayer: id
-            });
-        }
+
     };
 
     return <button

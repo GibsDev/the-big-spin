@@ -7,44 +7,38 @@ import PlayerPage from './PlayerPage';
 import Board from './Board';
 import Home from './Home';
 
-import io from 'socket.io-client';
-import {createContext, useEffect, useState} from "react";
-
-const socket = io();
-
-export const GameStateContext = createContext({});
-export const SocketContext = createContext(socket);
+import {useEffect, useState} from 'react';
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Home />
+        element: <Home/>
     },
     {
         path: '/board', // Game board
-        element: <Board />,
+        element: <Board/>,
     },
     {
         path: '/player1', // Game board
-        element: <PlayerPage id={1} />,
+        element: <PlayerPage id={1}/>,
     },
     {
         path: '/player2', // Game board
-        element: <PlayerPage id={2} />,
+        element: <PlayerPage id={2}/>,
     },
     {
         path: '/player3', // Game board
-        element: <PlayerPage id={3} />,
+        element: <PlayerPage id={3}/>,
     },
     {
         path: '/admin', // Game board
-        element: <AdminPage />,
+        element: <AdminPage/>,
     },
 ]);
 
 export const App = () => {
 
-    const [,setIsConnected] = useState(socket.connected);
+    const [, setIsConnected] = useState(socket.connected);
     const [gameState, setGameState] = useState({});
 
     useEffect(() => {
@@ -68,9 +62,7 @@ export const App = () => {
     }, []);
 
     return <SocketContext.Provider value={socket}>
-        <GameStateContext.Provider value={gameState}>
-            <RouterProvider router={router}/>
-        </GameStateContext.Provider>
+        <RouterProvider router={router}/>
     </SocketContext.Provider>;
 };
 

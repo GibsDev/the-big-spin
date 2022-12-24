@@ -1,18 +1,17 @@
-import {useContext} from 'react';
-import {GameStateContext, SocketContext} from './App.js';
 import DebugGameState from './DebugGameState';
 import clsx from 'clsx';
+import {useSelector} from 'react-redux';
+import gameSlice from './gameSlice';
 
 const PlayerPage = ({id}) => {
 
-    const gameState = useContext(GameStateContext);
-    const socket = useContext(SocketContext);
+    const currentPlayerId = useSelector(gameSlice.selectors.currentPlayer);
 
-    const isMyTurn = gameState.currentPlayer === id;
+    const isMyTurn = currentPlayerId === id;
 
     const spin = () => {
         if (isMyTurn) {
-            socket.emit('spin');
+            // socket.emit('spin');
         }
     };
 

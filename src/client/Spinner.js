@@ -1,5 +1,5 @@
 import {useCallback, useContext} from 'react';
-import {SocketContext} from './App';
+import {GameStateContext, SocketContext} from './App';
 
 const slices = [
     {
@@ -101,8 +101,6 @@ const slices = [
 ];
 
 const Spinner = () => {
-
-    const socket = useContext(SocketContext);
 
     const canvasRef = useCallback(canvas => {
         if (!canvas) return;
@@ -298,16 +296,17 @@ const Spinner = () => {
             } else {
                 spinning = false;
                 // TODO emit spin done
-                socket.emit('spin_complete', getCurrentValue());
+                // socket.emit('spin_complete', getCurrentValue());
+                // console.log(gameState);
             }
         }
 
         // Start spin on message
-        socket.on('spin', () => {
-            if (!spinning) {
-                spin();
-            }
-        });
+        // socket.on('spin', () => {
+        //     if (!spinning) {
+        //         spin();
+        //     }
+        // });
 
         render();
     }, []);
